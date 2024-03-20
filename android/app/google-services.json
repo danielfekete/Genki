@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371618514883",
+    "project_id": "genki-953b5",
+    "storage_bucket": "genki-953b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371618514883:android:9188feee2b2f20d465df76",
+        "android_client_info": {
+          "package_name": "com.genki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtK6sU-tMrhbKXWL4k7KpSojGsccKdnWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

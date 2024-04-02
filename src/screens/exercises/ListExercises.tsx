@@ -64,12 +64,8 @@ export default function ListExercises({
             <FlatList
               data={exercises}
               keyExtractor={({id}) => id}
-              renderItem={({item: {name}}) => (
-                <ExerciseListItem
-                  // muscleGroup={muscleGroup}
-                  name={name}
-                  // image={image}
-                />
+              renderItem={({item: {name, id}}) => (
+                <ExerciseListItem name={name} id={id} />
               )}
             />
           </View>

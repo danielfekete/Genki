@@ -62,28 +62,29 @@ function App(): React.JSX.Element {
       <Stack.Navigator
         initialRouteName="Dashboard"
         screenOptions={{
-          headerStyle: {
-            backgroundColor: '#0ea5e9',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
+          // headerStyle: {
+          //   backgroundColor: '#0ea5e9',
+          // },
+          // headerTintColor: '#fff',
+          // headerTitleStyle: {
+          //   fontWeight: 'bold',
+          // },
         }}>
         {user ? (
           <Stack.Group>
             <Stack.Screen
               name="Dashboard"
               component={Dashboard}
-              options={{
-                headerRight: () => (
-                  <Button
-                    title="Sign out"
-                    color="#fff"
-                    onPress={handleSignOut}
-                  />
-                ),
-              }}
+              // options={{
+              //   headerRight: () => (
+              //     <Button
+              //       title="Sign out"
+              //       color="#fff"
+              //       onPress={handleSignOut}
+              //     />
+              //   ),
+              // }}
             />
           </Stack.Group>
         ) : (

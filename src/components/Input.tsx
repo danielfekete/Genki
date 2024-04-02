@@ -3,10 +3,12 @@ import React from 'react';
 
 export default function Input({
   error,
+  label,
   ...props
-}: {error?: string} & TextInputProps) {
+}: {error?: string; label?: string} & TextInputProps) {
   return (
     <View style={styles.container}>
+      {label ? <Text>{label}</Text> : null}
       <TextInput style={styles.input} {...props} />
       {error && <Text style={styles.error}>{error}</Text>}
     </View>

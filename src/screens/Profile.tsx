@@ -1,11 +1,12 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import auth from '@react-native-firebase/auth';
+import React, {useEffect, useState} from 'react';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import PressableButton from '../components/PressableButton';
 import Input from '../components/Input';
 import * as yup from 'yup';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
+import useAppStore from '../stores/app';
 
 interface ProfileForm {
   email: string;
@@ -22,7 +23,7 @@ const profileSchema = yup.object({
 });
 
 export default function Profile() {
-  const user = auth().currentUser;
+  const {user, setUser} = useAppStore(({user, setUser}) => ({user, setUser}));
 
   const {control, handleSubmit} = useForm({
     resolver: yupResolver(profileSchema),
@@ -61,6 +62,16 @@ export default function Profile() {
       console.log(e);
     }
   };
+
+  const onUserChanged = (user: FirebaseAuthTypes.User | null) => {
+    setUser(user);
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onUserChanged(onUserChanged);
+
+    return subscriber;
+  }, []);
 
   if (!user) {
     return null;

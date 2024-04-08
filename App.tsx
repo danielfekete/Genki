@@ -5,9 +5,10 @@ import React, {useEffect, useState} from 'react';
 import {Button} from 'react-native';
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 import Dashboard from './src/screens/Dashboard';
+import useAppStore from './src/stores/app';
 
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -32,12 +33,10 @@ function App(): React.JSX.Element {
   // };
 
   const [isInitializing, setIsInitializing] = useState(false);
-  const [user, setUser] = useState();
-
-  console.log(user);
+  const {user, setUser} = useAppStore(({user, setUser}) => ({user, setUser}));
 
   // Handle authentication state changes
-  function onAuthStateChanged(user) {
+  function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
     setUser(user);
     if (isInitializing) {
       setIsInitializing(false);

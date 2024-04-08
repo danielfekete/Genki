@@ -13,12 +13,11 @@ interface Props {
 export default function ExerciseListItem({name, id}: Props) {
   return (
     <Link screen="Exercise" params={{id}}>
-      <View>
+      <View style={styles.container}>
         {/* <Image source={{uri: image}} /> */}
-        <View>
-          <Text>{name}</Text>
-          {/* <Text>{muscleGroup}</Text> */}
-        </View>
+
+        <Text style={styles.name}>{name}</Text>
+        {/* <Text>{muscleGroup}</Text> */}
       </View>
     </Link>
   );
@@ -26,10 +25,21 @@ export default function ExerciseListItem({name, id}: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    alignSelf: 'stretch',
+    marginVertical: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#0ea5e9',
+    height: 10,
     flexDirection: 'row',
   },
   image: {
     flex: 4,
+  },
+  name: {
+    color: '#fff',
+    fontSize: 15,
+    paddingLeft: 5,
+    fontWeight: 'bold',
   },
 });

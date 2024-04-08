@@ -1,5 +1,5 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import PressableButton from '../components/PressableButton';
 import Input from '../components/Input';
@@ -22,7 +22,7 @@ const profileSchema = yup.object({
 });
 
 export default function Profile() {
-  const {current: user} = useRef(auth().currentUser);
+  const user = auth().currentUser;
 
   const {control, handleSubmit} = useForm({
     resolver: yupResolver(profileSchema),
@@ -33,6 +33,12 @@ export default function Profile() {
       phoneNumber: user?.phoneNumber || '',
     },
   });
+
+  const handleSignOut = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
 
   const onSubmit = async (data: ProfileForm) => {
     // TODO: error handling
@@ -96,6 +102,9 @@ export default function Profile() {
       />
 
       <PressableButton title="Save" onPress={handleSubmit(onSubmit)} />
+      <Pressable onPress={handleSignOut} style={styles.signOutPressable}>
+        <Text style={styles.signOutText}>Sign out</Text>
+      </Pressable>
     </View>
   );
 }
@@ -111,5 +120,19 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+  },
+  signOutPressable: {
+    width: '80%',
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginBottom: 15,
+    borderColor: '#0ea5e9',
+    borderWidth: 1,
+  },
+  signOutText: {
+    color: '#0ea5e9',
   },
 });

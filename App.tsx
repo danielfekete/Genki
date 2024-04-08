@@ -20,6 +20,8 @@ export type RootStackParamList = {
   Login: undefined;
   SignUp: undefined;
 };
+
+// Stack navigator for the app
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
@@ -42,12 +44,7 @@ function App(): React.JSX.Element {
     }
   }
 
-  function handleSignOut() {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-  }
-
+  // Listen for authentication state to initialize
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
@@ -63,13 +60,6 @@ function App(): React.JSX.Element {
         initialRouteName="Dashboard"
         screenOptions={{
           headerShown: false,
-          // headerStyle: {
-          //   backgroundColor: '#0ea5e9',
-          // },
-          // headerTintColor: '#fff',
-          // headerTitleStyle: {
-          //   fontWeight: 'bold',
-          // },
         }}>
         {user ? (
           <Stack.Group>

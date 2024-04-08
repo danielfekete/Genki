@@ -15,6 +15,13 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BB47FDDF857ECCD4DA76C378 /* Pods_Genki_GenkiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87DD129DEFA58310B2E06FD /* Pods_Genki_GenkiTests.framework */; };
 		C0E1F7AF2BA8848400A677DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0E1F7AE2BA8848400A677DE /* GoogleService-Info.plist */; };
+		1D408DDD3E214A9CBA0D61C1 /* MPLUSRounded1c-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79603661300D4A49AFCBDFE0 /* MPLUSRounded1c-Black.ttf */; };
+		12E78F98B11B498984AB9C92 /* MPLUSRounded1c-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3D6BEDCD90E45458D9DA88A /* MPLUSRounded1c-Bold.ttf */; };
+		5C787B51567543B89D1EB535 /* MPLUSRounded1c-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8E6D8CFD8DE4CD6ABA3E44B /* MPLUSRounded1c-ExtraBold.ttf */; };
+		9F6D5E9BC3A14EFD816CEF2D /* MPLUSRounded1c-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49C9EAA3BABF495A91CE20A0 /* MPLUSRounded1c-Light.ttf */; };
+		A25CDD2C7DE5403A9846116F /* MPLUSRounded1c-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F42B42B92F43238D840A06 /* MPLUSRounded1c-Medium.ttf */; };
+		88364EDF7D7B47C1BF9CE7E8 /* MPLUSRounded1c-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 290FC0499D2748E88A0CA900 /* MPLUSRounded1c-Regular.ttf */; };
+		6B0C999386704D5E8A3F50C8 /* MPLUSRounded1c-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 933AD7231D584BBE9ADCEB14 /* MPLUSRounded1c-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +53,13 @@
 		C0E1F7AE2BA8848400A677DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D87DD129DEFA58310B2E06FD /* Pods_Genki_GenkiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Genki_GenkiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		79603661300D4A49AFCBDFE0 /* MPLUSRounded1c-Black.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-Black.ttf"; path = "../assets/fonts/MPLUSRounded1c-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D3D6BEDCD90E45458D9DA88A /* MPLUSRounded1c-Bold.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-Bold.ttf"; path = "../assets/fonts/MPLUSRounded1c-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D8E6D8CFD8DE4CD6ABA3E44B /* MPLUSRounded1c-ExtraBold.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-ExtraBold.ttf"; path = "../assets/fonts/MPLUSRounded1c-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		49C9EAA3BABF495A91CE20A0 /* MPLUSRounded1c-Light.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-Light.ttf"; path = "../assets/fonts/MPLUSRounded1c-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B4F42B42B92F43238D840A06 /* MPLUSRounded1c-Medium.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-Medium.ttf"; path = "../assets/fonts/MPLUSRounded1c-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		290FC0499D2748E88A0CA900 /* MPLUSRounded1c-Regular.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-Regular.ttf"; path = "../assets/fonts/MPLUSRounded1c-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		933AD7231D584BBE9ADCEB14 /* MPLUSRounded1c-Thin.ttf */ = {isa = PBXFileReference; name = "MPLUSRounded1c-Thin.ttf"; path = "../assets/fonts/MPLUSRounded1c-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +139,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				90C6EDF5DB8C4DD48A763101 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -150,6 +165,21 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		90C6EDF5DB8C4DD48A763101 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				79603661300D4A49AFCBDFE0 /* MPLUSRounded1c-Black.ttf */,
+				D3D6BEDCD90E45458D9DA88A /* MPLUSRounded1c-Bold.ttf */,
+				D8E6D8CFD8DE4CD6ABA3E44B /* MPLUSRounded1c-ExtraBold.ttf */,
+				49C9EAA3BABF495A91CE20A0 /* MPLUSRounded1c-Light.ttf */,
+				B4F42B42B92F43238D840A06 /* MPLUSRounded1c-Medium.ttf */,
+				290FC0499D2748E88A0CA900 /* MPLUSRounded1c-Regular.ttf */,
+				933AD7231D584BBE9ADCEB14 /* MPLUSRounded1c-Thin.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -248,6 +278,13 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C0E1F7AF2BA8848400A677DE /* GoogleService-Info.plist in Resources */,
+				1D408DDD3E214A9CBA0D61C1 /* MPLUSRounded1c-Black.ttf in Resources */,
+				12E78F98B11B498984AB9C92 /* MPLUSRounded1c-Bold.ttf in Resources */,
+				5C787B51567543B89D1EB535 /* MPLUSRounded1c-ExtraBold.ttf in Resources */,
+				9F6D5E9BC3A14EFD816CEF2D /* MPLUSRounded1c-Light.ttf in Resources */,
+				A25CDD2C7DE5403A9846116F /* MPLUSRounded1c-Medium.ttf in Resources */,
+				88364EDF7D7B47C1BF9CE7E8 /* MPLUSRounded1c-Regular.ttf in Resources */,
+				6B0C999386704D5E8A3F50C8 /* MPLUSRounded1c-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

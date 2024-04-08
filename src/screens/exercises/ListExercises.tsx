@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore, {
   FirebaseFirestoreTypes,
@@ -11,17 +11,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import {TabParamList} from '../Dashboard';
 import {ExercisesStackParamList} from './ExercisesStack';
-
-interface Exercise {
-  id: string;
-  name: string;
-  description: string;
-  bodyParts: string[];
-}
-
-interface FirebaseExercise extends Omit<Exercise, 'id' | 'bodyParts'> {
-  bodyParts: FirebaseFirestoreTypes.DocumentReference[];
-}
+import {Exercise, FirebaseExercise} from '../../types/exercise';
 
 export default function ListExercises({
   navigation,
@@ -30,8 +20,6 @@ export default function ListExercises({
   NativeStackScreenProps<ExercisesStackParamList, 'ListExercises'>
 >) {
   const ref = firestore().collection<FirebaseExercise>('exercises');
-
-  console.log(ref);
 
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [exercises, setExercises] = useState<Exercise[]>([]); // Initial empty array of exercises
@@ -52,33 +40,35 @@ export default function ListExercises({
     });
   }, []);
 
-  console.log(exercises);
-
   return (
-    <View style={{flex: 1}}>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <View style={{flex: 1}}>
-          <View style={{flex: 5}}>
-            <FlatList
-              data={exercises}
-              keyExtractor={({id}) => id}
-              renderItem={({item: {name, id}}) => (
-                <ExerciseListItem name={name} id={id} />
-              )}
-            />
+    // <View style={{flex: 1}}>
+    //   {loading ? (
+    //     <Text>Loading...</Text>
+    //   ) : (
+    //     <View style={{flex: 1}}>
+    // <SafeAreaView style={{flex: 1}}>
+    //   <FlatList
+    //     data={exercises}
+    //     keyExtractor={({id}) => id}
+    //     renderItem={({item: {name, id, bodyParts}}) => (
+    //       <ExerciseListItem name={name} id={id} />
+    //     )}
+    //   />
+    // </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={exercises}
+        renderItem={({item: {name}}) => (
+          <View style={styles.item}>
+            <Text style={styles.title}>{name}</Text>
           </View>
-          <View style={styles.addButtonContainer}>
-            <PressableAddButton
-              onPress={() => {
-                navigation.navigate('CreateExercise');
-              }}
-            />
-          </View>
-        </View>
-      )}
-    </View>
+        )}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
+
+    // )}
+    // </View>
   );
 }
 
@@ -88,5 +78,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  container: {
+    flex: 1,
+  },
+  item: {
+    borderRadius: 5,
+    backgroundColor: '#0ea5e9',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    color: '#fff',
   },
 });

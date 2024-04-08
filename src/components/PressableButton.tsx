@@ -4,9 +4,11 @@ import React from 'react';
 export default function PressableButton({
   title,
   ...props
-}: {title: string} & PressableProps) {
+}: {
+  title: string;
+} & PressableProps) {
   return (
-    <Pressable style={styles.pressable} {...props}>
+    <Pressable {...props} style={styles.pressable}>
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );

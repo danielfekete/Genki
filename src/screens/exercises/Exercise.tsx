@@ -1,15 +1,31 @@
 import {StyleSheet, Text, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {FirebaseExercise} from '../../types/exercise';
 
 export default function Exercise({route}) {
   const {id} = route.params;
 
-  const ref = firestore().collection('exercises').doc(id);
+  const ref = firestore().collection<FirebaseExercise>('exercises').doc(id);
+
+  const [exercise, setExercise] = useState<FirebaseExercise | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    return ref.onSnapshot(querySnapshot => {
+      setExercise(querySnapshot.data());
+    });
+  }, []);
 
   return (
     <View>
-      <Text>Exercise: {id}</Text>
+      {exercise ? (
+        <View>
+          <Text>Name: {exercise.name}</Text>
+          <Text>Description: {exercise.description}</Text>
+        </View>
+      ) : null}
     </View>
   );
 }

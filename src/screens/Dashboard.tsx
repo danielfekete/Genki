@@ -11,6 +11,7 @@ export type TabParamList = {
   Exercises: undefined;
 };
 
+// Bottom tab navigator for the dashboard
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export default function Dashboard() {

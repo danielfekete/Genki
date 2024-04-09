@@ -4,6 +4,7 @@ import Workouts from './Workouts';
 import Profile from './Profile';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ExercisesStack from './exercises/ExercisesStack';
+import WorkoutsStack from './workouts/WorkoutsStack';
 
 export type TabParamList = {
   Profile: undefined;
@@ -21,8 +22,15 @@ export default function Dashboard() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Workouts" component={Workouts} />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: 'Profile',
+          headerShown: true,
+        }}
+      />
+      <Tab.Screen name="Workouts" component={WorkoutsStack} />
       <Tab.Screen name="Exercises" component={ExercisesStack} />
     </Tab.Navigator>
   );

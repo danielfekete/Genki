@@ -6,14 +6,17 @@ import ModalScreen from '../../components/Picker';
 import SelectBodyParts from './SelectBodyParts';
 import Exercise from './Exercise';
 import {Text} from 'react-native';
+import ListWorkouts from './ListWorkouts';
+import CreateWorkout from './CreateWorkout';
+import Workout from './Workout';
 
-// export const ExerciseContext = React.createContext<{
-//   selectedBodyParts: string[];
-//   setSelectedBodyParts: (selectedBodyParts: string[]) => void;
-// }>({
-//   selectedBodyParts: [],
-//   setSelectedBodyParts: () => {},
-// });
+export const WorkoutContext = React.createContext<{
+  selectedExercises: string[];
+  setSelectedExercises: (selectedExercises: string[]) => void;
+}>({
+  selectedExercises: [],
+  setSelectedExercises: () => {},
+});
 
 export type WorkoutsStackParamList = {
   CreateWorkout: undefined;
@@ -23,7 +26,7 @@ export type WorkoutsStackParamList = {
 
 const Stack = createNativeStackNavigator<WorkoutsStackParamList>();
 
-export default function ExercisesStack() {
+export default function WorkoutsStack() {
   //   const [selectedBodyParts, setSelectedBodyParts] = React.useState<string[]>(
   //     [],
   //   );
@@ -53,21 +56,21 @@ export default function ExercisesStack() {
       <Stack.Group>
         <Stack.Screen
           name="ListWorkouts"
-          component={ListExercises}
+          component={ListWorkouts}
           options={{
             title: 'Workouts',
           }}
         />
         <Stack.Screen
           name="CreateWorkout"
-          component={CreateExercise}
+          component={CreateWorkout}
           options={{
             title: 'Create Workout',
           }}
         />
         <Stack.Screen
           name="Workout"
-          component={Exercise}
+          component={Workout}
           options={({route}) => ({title: route.params.name})}
         />
       </Stack.Group>

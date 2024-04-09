@@ -1,4 +1,11 @@
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore, {
   FirebaseFirestoreTypes,
@@ -12,6 +19,7 @@ import {RootStackParamList} from '../../../App';
 import {TabParamList} from '../Dashboard';
 import {ExercisesStackParamList} from './ExercisesStack';
 import {Exercise, FirebaseExercise} from '../../types/exercise';
+import Input from '../../components/Input';
 
 export default function ListExercises({
   navigation,
@@ -21,11 +29,18 @@ export default function ListExercises({
 >) {
   const ref = firestore().collection<FirebaseExercise>('exercises');
 
+  const [search, setSearch] = useState(''); // Set search to empty string on component mount
+
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [exercises, setExercises] = useState<Exercise[]>([]); // Initial empty array of exercises
 
   useEffect(() => {
-    return ref.onSnapshot(querySnapshot => {
+    const query = ref
+      .orderBy('name')
+      .startAt(search)
+      .endAt(search + '\uf8ff');
+    console.log(search);
+    return query.onSnapshot(querySnapshot => {
       const exercises = querySnapshot.docs.map(doc => ({
         bodyParts: doc.data().bodyParts.map(item => item.id),
         name: doc.data().name,
@@ -38,7 +53,7 @@ export default function ListExercises({
         setLoading(false);
       }
     });
-  }, []);
+  }, [search]);
 
   return (
     // <View style={{flex: 1}}>
@@ -55,32 +70,56 @@ export default function ListExercises({
     //     )}
     //   />
     // </SafeAreaView>
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={exercises}
-        renderItem={({item: {name}}) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{name}</Text>
-          </View>
-        )}
-        keyExtractor={item => item.id}
-      />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <View style={{flex: 1}}>
+        <Input
+          placeholder="Search"
+          value={search}
+          onChangeText={v => {
+            setSearch(v);
+          }}
+        />
+      </View>
+      <View style={styles.listContainer}>
+        <View style={styles.container}>
+          <FlatList
+            data={exercises}
+            renderItem={({item: {name}}) => (
+              <View style={styles.item}>
+                <Text style={styles.title}>{name}</Text>
+              </View>
+            )}
+            keyExtractor={item => item.id}
+          />
 
-    // )}
-    // </View>
+          {/* <View style={styles.addButtonContainer}>
+        <PressableAddButton
+          onPress={() => navigation.navigate('CreateExercise')}
+        />
+      </View> */}
+        </View>
+      </View>
+      <View style={styles.addButtonContainer}>
+        <PressableAddButton
+          onPress={() => navigation.navigate('CreateExercise')}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   addButtonContainer: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
-  container: {
-    flex: 1,
+  listContainer: {
+    flex: 8,
   },
   item: {
     borderRadius: 5,

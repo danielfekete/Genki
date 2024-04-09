@@ -1,5 +1,6 @@
 import {
   FlatList,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -20,6 +21,7 @@ import {TabParamList} from '../Dashboard';
 import {ExercisesStackParamList} from './ExercisesStack';
 import {Exercise, FirebaseExercise} from '../../types/exercise';
 import Input from '../../components/Input';
+import LinkButton from '../../components/LinkButton';
 
 export default function ListExercises({
   navigation,
@@ -84,10 +86,15 @@ export default function ListExercises({
         <View style={styles.container}>
           <FlatList
             data={exercises}
-            renderItem={({item: {name}}) => (
-              <View style={styles.item}>
-                <Text style={styles.title}>{name}</Text>
-              </View>
+            renderItem={({item: {name, id}}) => (
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('Exercise', {id, name});
+                }}>
+                <View style={styles.item}>
+                  <Text style={styles.title}>{name}</Text>
+                </View>
+              </Pressable>
             )}
             keyExtractor={item => item.id}
           />

@@ -3,7 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import React, {useEffect, useState} from 'react';
 import {FirebaseExercise} from '../../types/exercise';
 
-export default function Exercise({route}) {
+export default function Exercise({route, navigation}) {
   const {id} = route.params;
 
   const ref = firestore().collection<FirebaseExercise>('exercises').doc(id);

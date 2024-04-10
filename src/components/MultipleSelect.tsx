@@ -22,13 +22,22 @@ function FlatListItem({
   );
 }
 
-interface Props {
-  list: {id: string; name: string}[];
+interface Option {
+  id: string;
+  name: string;
 }
 
-export default function MultipleSelect({list}: Props) {
-  const [selected, setSelected] = React.useState<string[]>([]);
+export interface MulitpleSelectProps<T extends Option> {
+  options: T[];
+  onChange: (values: string[]) => void;
+  value: string[];
+}
 
+export default function MultipleSelect<T extends Option>({
+  options,
+  onChange,
+  value,
+}: MulitpleSelectProps<T>) {
   return (
     <View>
       {/* Search input */}
@@ -41,21 +50,21 @@ export default function MultipleSelect({list}: Props) {
           <Text style={styles.selectItemText}>Selected</Text>
           <Pressable
             onPress={() => {
-              setSelected([]);
+              onChange([]);
             }}>
             <Text style={styles.deselectText}>Deselect All</Text>
           </Pressable>
         </View>
 
         <FlatList
-          data={selected}
+          data={value}
           keyExtractor={item => item}
           renderItem={({item}) => (
             <FlatListItem
-              name={list.find(i => i.id === item)?.name || ''}
+              name={options.find(i => i.id === item)?.name || ''}
               selected={true}
               onPress={() => {
-                setSelected(selected.filter(i => i !== item));
+                onChange(value.filter(i => i !== item));
               }}
             />
           )}
@@ -68,24 +77,24 @@ export default function MultipleSelect({list}: Props) {
           <Text style={styles.selectItemText}>All</Text>
           <Pressable
             onPress={() => {
-              setSelected([]);
+              onChange([...options.map(o => o.id)]);
             }}>
             <Text style={styles.selectAllText}>Select All</Text>
           </Pressable>
         </View>
         <FlatList
-          data={list}
+          data={options}
           keyExtractor={({id}) => id}
           renderItem={({item}) => (
             <FlatListItem
               name={item.name}
-              selected={selected.includes(item.id)}
+              selected={value.includes(item.id)}
               onPress={() => {
-                if (selected.includes(item.id)) {
-                  setSelected(selected.filter(s => s !== item.id));
+                if (value.includes(item.id)) {
+                  onChange(value.filter(s => s !== item.id));
                   return;
                 }
-                setSelected([...selected, item.id]);
+                onChange([...value, item.id]);
               }}
             />
           )}

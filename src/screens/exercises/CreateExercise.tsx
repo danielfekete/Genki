@@ -1,20 +1,11 @@
-import {
-  Alert,
-  Modal,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useContext, useEffect, useMemo} from 'react';
 import * as yup from 'yup';
 import Input from '../../components/Input';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import PressableButton from '../../components/PressableButton';
 import firestore from '@react-native-firebase/firestore';
-import {Picker, PickerIOS} from '@react-native-picker/picker';
 import useGetBodyParts from '../../hooks/useGetBodyParts';
 import {ExerciseContext} from './ExercisesStack';
 

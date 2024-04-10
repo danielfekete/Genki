@@ -2,10 +2,8 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ListExercises from './ListExercises';
 import CreateExercise from './CreateExercise';
-import ModalScreen from '../../components/Picker';
 import SelectBodyParts from './SelectBodyParts';
 import Exercise from './Exercise';
-import {Text} from 'react-native';
 
 export const ExerciseContext = React.createContext<{
   selectedBodyParts: string[];
@@ -19,6 +17,7 @@ export type ExercisesStackParamList = {
   CreateExercise: undefined;
   ListExercises: undefined;
   Exercise: {id: string; name: string};
+  SelectBodyParts: undefined;
 };
 
 const Stack = createNativeStackNavigator<ExercisesStackParamList>();

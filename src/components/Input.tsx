@@ -1,11 +1,12 @@
 import {StyleSheet, Text, TextInput, TextInputProps, View} from 'react-native';
 import React from 'react';
 
-export default function Input({
-  error,
-  label,
-  ...props
-}: {error?: string; label?: string} & TextInputProps) {
+interface Props extends TextInputProps {
+  error?: string;
+  label?: string;
+}
+
+export default function Input({error, label, ...props}: Props) {
   return (
     <View style={styles.container}>
       {label ? <Text>{label}</Text> : null}

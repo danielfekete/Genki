@@ -1,7 +1,9 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React, {useContext, useEffect} from 'react';
 import useGetExercises from '../../hooks/useGetExercises';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
 import {
   Controller,
   FormProvider,
@@ -11,9 +13,13 @@ import {
 import * as yup from 'yup';
 import Input from '../../components/Input';
 import PressableButton from '../../components/PressableButton';
-import {WorkoutForm} from '../../types/workout';
+import {FirebaseWorkout, WorkoutForm} from '../../types/workout';
 import {WorkoutContext} from './WorkoutsStack';
 import ExerciseForm from '../../components/ExerciseForm';
+import {yupResolver} from '@hookform/resolvers/yup';
+import useAppStore from '../../stores/app';
+
+const MAX_NAME_LENGTH = 50;
 
 export const workoutForm: yup.ObjectSchema<WorkoutForm> = yup.object({
   name: yup.string().required(),
@@ -39,18 +45,62 @@ export const workoutForm: yup.ObjectSchema<WorkoutForm> = yup.object({
     .default([]),
 });
 
+const transformNumber = (
+  value: any,
+  originalValue: any,
+  context: yup.NumberSchema<number | undefined, yup.AnyObject, undefined, ''>,
+) => {
+  if (context.isType(value)) {
+    return value;
+  }
+  value = +value;
+  if (isNaN(value)) {
+    return 0;
+  }
+  return value;
+};
+
+const addWorkout: yup.ObjectSchema<FirebaseWorkout> = workoutForm.shape({
+  user: yup.mixed<FirebaseFirestoreTypes.DocumentReference>().required(),
+  exercises: yup
+    .array()
+    .of(
+      yup.object({
+        exercise: yup
+          .mixed<FirebaseFirestoreTypes.DocumentReference>()
+          .required(),
+        sets: yup
+          .array()
+          .of(
+            yup.object({
+              reps: yup.number().transform(transformNumber).required(),
+              weight: yup.number().transform(transformNumber).required(),
+              time: yup.string().required(),
+            }),
+          )
+          .required()
+          .default([]),
+      }),
+    )
+    .required()
+    .default([]),
+});
+
 export default function CreateWorkout({navigation}) {
   const {loading, exercises = []} = useGetExercises();
 
+  const user = useAppStore(state => state.user);
+
   const {selectedExercises} = useContext(WorkoutContext);
 
-  const ref = firestore().collection('workouts');
+  const ref = firestore().collection<FirebaseWorkout>('workouts');
 
   const methods = useForm<WorkoutForm>({
     defaultValues: {
       name: '',
       exercises: [],
     },
+    resolver: yupResolver(workoutForm),
   });
   const {control, handleSubmit} = methods;
 
@@ -76,8 +126,26 @@ export default function CreateWorkout({navigation}) {
     }
   }, [selectedExercises]);
 
-  const onSubmit = async (data: WorkoutForm) => {
-    console.log(data);
+  const onSubmit = async ({name, exercises}: WorkoutForm) => {
+    // workoutForm.transform((value,originalValue)=>{
+    //   originalValue
+    // })
+    try {
+      await ref.add(
+        addWorkout.cast({
+          name,
+          // Fix typing
+          exercises: exercises.map(({exerciseId, sets}) => ({
+            exercise: firestore().doc(`exercises/${exerciseId}`),
+            sets,
+          })),
+          user: firestore().doc(`users/${user?.uid}`),
+        }),
+      );
+      navigation.replace('ListWorkouts');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   console.log('fields', fields);
@@ -99,6 +167,7 @@ export default function CreateWorkout({navigation}) {
                 onBlur={onBlur}
                 value={value}
                 error={error?.message}
+                maxLength={MAX_NAME_LENGTH}
               />
             )}
           />

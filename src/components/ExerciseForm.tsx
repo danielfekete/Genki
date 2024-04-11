@@ -11,6 +11,8 @@ interface Props {
   id: string;
 }
 
+const MAX_SETS = 20;
+
 export default function ExerciseForm({index, id}: Props) {
   const {control} = useFormContext<WorkoutForm>();
 
@@ -27,6 +29,10 @@ export default function ExerciseForm({index, id}: Props) {
   });
 
   const handleAddSet = () => {
+    // Limit the number of sets to ${MAX_SETS}
+    if (fields.length > MAX_SETS) {
+      return;
+    }
     append({
       reps: '',
       weight: '',

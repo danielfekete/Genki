@@ -3,12 +3,19 @@ import React from 'react';
 import Input from './Input';
 import {Controller, useFormContext} from 'react-hook-form';
 import {WorkoutForm} from '../types/workout';
+import {formatWithMask, Masks} from 'react-native-mask-input';
+
+console.log(Masks);
 
 interface Props {
   exerciseIndex: number;
   setIndex: number;
   onDelete?: (index: number) => void;
 }
+
+const MAX_REPS = 3;
+const MAX_WEIGHT = 3;
+const TIME_MASK = [/\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/];
 
 function SetHeaders() {
   return (
@@ -60,6 +67,7 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
                 value={value}
                 error={error?.message}
                 keyboardType="numeric"
+                maxLength={MAX_REPS}
               />
             )}
           />
@@ -78,6 +86,7 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
                 value={value}
                 error={error?.message}
                 keyboardType="numeric"
+                maxLength={MAX_WEIGHT}
               />
             )}
           />
@@ -91,7 +100,13 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
               fieldState: {error},
             }) => (
               <Input
-                onChangeText={onChange}
+                onChangeText={e => {
+                  const {masked} = formatWithMask({
+                    mask: TIME_MASK,
+                    text: e,
+                  });
+                  onChange(masked);
+                }}
                 onBlur={onBlur}
                 value={value}
                 error={error?.message}

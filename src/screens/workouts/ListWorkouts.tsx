@@ -5,6 +5,7 @@ import {FirebaseWorkout, Workout} from '../../types/workout';
 import PressableAddButton from '../../components/PressableAddButton';
 import useGetExercises from '../../hooks/useGetExercises';
 import {Dimensions} from 'react-native';
+import useGetWorkouts from '../../hooks/useGetWorkouts';
 
 const {width} = Dimensions.get('window');
 const column = 2;
@@ -14,33 +15,9 @@ const SIZE = (width - margin * column * 2) / column;
 const MAX_VISIBLE_EXERCISES = 3;
 
 export default function ListWorkouts({navigation}) {
-  const ref = firestore().collection<FirebaseWorkout>('workouts');
+  const {workouts = [], loading} = useGetWorkouts();
 
   const {exercises = []} = useGetExercises();
-
-  const [loading, setLoading] = useState(true);
-
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-
-  useEffect(() => {
-    return ref.onSnapshot(querySnapshot => {
-      const workouts = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        name: doc.data().name,
-        exercises: doc.data().exercises.map(({exercise, sets}) => ({
-          exerciseId: exercise.id,
-          sets,
-        })),
-        userId: doc.data().user.id,
-      }));
-
-      setWorkouts(workouts);
-
-      if (loading) {
-        setLoading(false);
-      }
-    });
-  }, []);
 
   return (
     <View style={styles.container}>

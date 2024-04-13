@@ -1,4 +1,11 @@
-import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useMemo} from 'react';
 import {format} from 'date-fns-tz';
 import {
@@ -43,7 +50,12 @@ const weekStart = startOfWeek(arr.find(({today}) => today)?.val, {
 const initialScrollIndex = arr.findIndex(({val}) => isEqual(val, weekStart));
 console.log(initialScrollIndex);
 
-export default function Calendar() {
+interface Props {
+  value: Date;
+  onChange: (date: Date) => void;
+}
+
+export default function Calendar({value, onChange}) {
   // const
   return (
     <View
@@ -63,26 +75,45 @@ export default function Calendar() {
         initialScrollIndex={initialScrollIndex}
         renderItem={({item}) => {
           return (
-            <View
-              style={{
-                width: WIDTH,
-                height: HEIGHT,
-                paddingVertical: 5,
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: '#000',
+            <Pressable
+              onPress={() => {
+                onChange(item.val);
               }}>
-              <Text style={{marginBottom: 5}}>{item.weekDay}</Text>
-              <Text
+              <View
                 style={{
-                  fontSize: 20,
+                  width: WIDTH,
+                  height: HEIGHT,
+                  paddingVertical: 5,
+                  alignItems: 'center',
+                  borderWidth: 1,
+                  borderColor: '#000',
+                  backgroundColor: isEqual(item.val, value)
+                    ? '#0ea5e9'
+                    : '#fff',
                 }}>
-                {item.date}
-              </Text>
-              {item.today ? (
-                <Ionicons name="ellipse" WIDTH={20} color="#0ea5e9" />
-              ) : null}
-            </View>
+                <Text
+                  style={{
+                    marginBottom: 5,
+                    color: isEqual(value, item.val) ? '#fff' : '#000',
+                  }}>
+                  {item.weekDay}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: isEqual(value, item.val) ? '#fff' : '#000',
+                  }}>
+                  {item.date}
+                </Text>
+                {item.today ? (
+                  <Ionicons
+                    name="ellipse"
+                    WIDTH={20}
+                    color={isEqual(value, item.val) ? '#fff' : '#0ea5e9'}
+                  />
+                ) : null}
+              </View>
+            </Pressable>
           );
         }}
       />

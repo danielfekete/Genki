@@ -22,6 +22,7 @@ import {ExercisesStackParamList} from './ExercisesStack';
 import {Exercise, FirebaseExercise} from '../../types/exercise';
 import Input from '../../components/Input';
 import LinkButton from '../../components/LinkButton';
+import useGetExercises from '../../hooks/useGetExercises';
 
 export default function ListExercises({
   navigation,
@@ -33,29 +34,7 @@ export default function ListExercises({
 
   const [search, setSearch] = useState(''); // Set search to empty string on component mount
 
-  const [loading, setLoading] = useState(true); // Set loading to true on component mount
-  const [exercises, setExercises] = useState<Exercise[]>([]); // Initial empty array of exercises
-
-  useEffect(() => {
-    const query = ref
-      .orderBy('name')
-      .startAt(search)
-      .endAt(search + '\uf8ff');
-    console.log(search);
-    return query.onSnapshot(querySnapshot => {
-      const exercises = querySnapshot.docs.map(doc => ({
-        bodyParts: doc.data().bodyParts.map(item => item.id),
-        name: doc.data().name,
-        description: doc.data().description,
-        id: doc.id,
-      }));
-
-      setExercises(exercises);
-      if (loading) {
-        setLoading(false);
-      }
-    });
-  }, [search]);
+  const {loading, exercises = []} = useGetExercises(search);
 
   return (
     // <View style={{flex: 1}}>

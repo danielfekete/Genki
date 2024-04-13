@@ -6,7 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ExercisesStack from './exercises/ExercisesStack';
 import WorkoutsStack from './workouts/WorkoutsStack';
 import Placeholder from './Placeholder';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import CircleBorder from '../components/CircleBorder';
 import Tracking from './tracking/Tracking';
 

@@ -22,8 +22,6 @@ export default function ListWorkouts({navigation}) {
 
   const [workouts, setWorkouts] = useState<Workout[]>([]);
 
-  console.log(workouts);
-
   useEffect(() => {
     return ref.onSnapshot(querySnapshot => {
       const workouts = querySnapshot.docs.map(doc => ({

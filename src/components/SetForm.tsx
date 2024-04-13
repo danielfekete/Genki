@@ -4,6 +4,7 @@ import Input from './Input';
 import {Controller, useFormContext} from 'react-hook-form';
 import {WorkoutForm} from '../types/workout';
 import {formatWithMask, Masks} from 'react-native-mask-input';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 console.log(Masks);
 
@@ -20,19 +21,19 @@ const TIME_MASK = [/\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/];
 function SetHeaders() {
   return (
     <View style={styles.row}>
-      <View style={styles.col1}>
+      <View style={{flex: 1, ...styles.col}}>
         <Text>Set</Text>
       </View>
-      <View style={styles.col2}>
+      <View style={{flex: 1, ...styles.col}}>
         <Text>Reps</Text>
       </View>
-      <View style={styles.col2}>
-        <Text>Weight(kg)</Text>
+      <View style={{flex: 1, ...styles.col}}>
+        <Text>Weight</Text>
       </View>
-      <View style={styles.col2}>
+      <View style={{flex: 2, ...styles.col}}>
         <Text>Time</Text>
       </View>
-      <View style={styles.col1} />
+      <View style={{flex: 1, ...styles.col}} />
     </View>
   );
 }
@@ -50,10 +51,10 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
     <View>
       {setIndex === 0 ? <SetHeaders /> : null}
       <View style={styles.row}>
-        <View style={styles.col1}>
+        <View style={{flex: 1, ...styles.col}}>
           <Text>{setIndex + 1}</Text>
         </View>
-        <View style={styles.col2}>
+        <View style={{flex: 1, ...styles.col}}>
           <Controller
             control={control}
             name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
@@ -72,7 +73,7 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
             )}
           />
         </View>
-        <View style={styles.col2}>
+        <View style={{flex: 1, ...styles.col}}>
           <Controller
             control={control}
             name={`exercises.${exerciseIndex}.sets.${setIndex}.weight`}
@@ -91,7 +92,7 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
             )}
           />
         </View>
-        <View style={styles.col2}>
+        <View style={{flex: 2, ...styles.col}}>
           <Controller
             control={control}
             name={`exercises.${exerciseIndex}.sets.${setIndex}.time`}
@@ -114,9 +115,9 @@ export default function SetForm({exerciseIndex, setIndex, onDelete}: Props) {
             )}
           />
         </View>
-        <View style={styles.col1}>
+        <View style={{flex: 1, ...styles.col}}>
           <Pressable onPress={handleDelete}>
-            <Text>X</Text>
+            <Ionicons name="trash" size={30} color="red" />
           </Pressable>
         </View>
       </View>
@@ -129,13 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 5,
   },
-  col1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  col2: {
-    flex: 2,
+  col: {
     justifyContent: 'center',
     alignItems: 'center',
   },
